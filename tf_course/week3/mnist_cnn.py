@@ -34,11 +34,21 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 model.summary()
 
 #%%
-model.fit(train_X, train_Y, epochs=5)
+model.fit(train_X, train_Y, epochs=5, callbacks=[callbacks])
 test_loss, test_acc = model.evaluate(test_X, test_Y)
 
 #%%
 f, axarr = plt.subplots(3, 4)
 layer_outputs = [layer.output for layer in model.layers]
-
+activation_model = keras.models.Model(inputs = model.input, outputs = layer_outputs)
+for x in range(0,4):
+  f1 = activation_model.predict(test_X[0].reshape(1, 28, 28, 1))[x]
+  axarr[0,x].imshow(f1[0, :, :, 1], cmap='inferno')
+  axarr[0,x].grid(False)
+  f2 = activation_model.predict(test_X[7].reshape(1, 28, 28, 1))[x]
+  axarr[1,x].imshow(f2[0, :, :, 1], cmap='inferno')
+  axarr[1,x].grid(False)
+  f3 = activation_model.predict(test_X[26].reshape(1, 28, 28, 1))[x]
+  axarr[2,x].imshow(f3[0, :, :, 1], cmap='inferno')
+  axarr[2,x].grid(False)
 
