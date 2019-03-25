@@ -46,3 +46,21 @@ plt.gray()
 plt.grid(False)
 plt.imshow(i_transformed)
 plt.show()
+
+#%%
+# Max Pooling
+new_image = np.zeros((int(size_x/2), int(size_y/2)))
+for x in range(0, size_x, 2):
+  for y in range(0, size_y, 2):
+    pixels = []
+    pixels.append(i_transformed[x,y])
+    pixels.append(i_transformed[x+1,y])
+    pixels.append(i_transformed[x,y+1])
+    pixels.append(i_transformed[x+1,y+1])
+    new_image[int(x/2),int(y/2)] = max(pixels)
+
+# Plot the image
+plt.gray()
+plt.grid(False)
+plt.imshow(new_image)
+plt.show()
