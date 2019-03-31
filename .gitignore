@@ -1,2 +1,4 @@
 venv/
 .vscode/
+tf_course/week4/horse-or-human
+tf_course/week4/*.zip
